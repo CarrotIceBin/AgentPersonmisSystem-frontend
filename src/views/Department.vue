@@ -2,7 +2,7 @@
   <div class="department-container">
     <!-- 页面标题 -->
     <div class="page-header">
-      <h2 class="page-title">部门管理</h2>
+      <h2 class="page-title">部门  管理</h2>
       <p class="page-subtitle">管理企业部门信息</p>
     </div>
     

@@ -20,7 +20,7 @@
         </el-form-item>
       </el-form>
       <div class="login-footer">
-        <p>© 2026  湖北科技有限公司 版权所有</p>
+        <p>© 2026 湖北科技有限公司 版权所有</p>
       </div>
     </div>
   </div>

@@ -81,12 +81,12 @@ export default {
     },
     loadSupdepartment(){
         this.$axios
-          .get('/department/list/')
+          .get('/getDepartment')
           .then(successResponse => {
-              this.supdepartments = successResponse.data.data
+              this.supdepartments = successResponse.data
           })
           .catch(failResponse => {
-            this.$alert(failResponse.response.status)
+            this.$alert(failResponse.response?.status || '请求失败')
           })
     },
     cancel(){

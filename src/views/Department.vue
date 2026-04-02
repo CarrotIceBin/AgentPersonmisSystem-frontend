@@ -42,11 +42,11 @@
         :cell-style="{ textAlign: 'center' }"
         :default-sort="{prop: 'id', order: 'descending'}"
         class="data-table">
-        <el-table-column prop="id" label="ID" sortable width="80"></el-table-column>
-        <el-table-column prop="dname" label="名称" width="180"></el-table-column>
-        <el-table-column prop="dtype" label="类型" width="120"></el-table-column>
-        <el-table-column prop="establishmentdate1" label="成立日期" sortable width="160"></el-table-column>
-        <el-table-column label="操作" width="200">
+        <el-table-column prop="id" label="ID" sortable width="100"></el-table-column>
+        <el-table-column prop="dname" label="名称" width="300"></el-table-column>
+        <el-table-column prop="dtype" label="类型" width="200"></el-table-column>
+        <el-table-column prop="establishmentdate1" label="成立日期" sortable width="300"></el-table-column>
+        <el-table-column label="操作" width="300">
           <template #default="scope">
             <div class="table-actions">
               <el-button
@@ -170,7 +170,7 @@ export default {
           act: ''
         },
         currentPage: 1,
-        tableData: [{}],//定义空数组接收数据
+        tableData: [],//定义空数组接收数据
         pageSize: 10,
         total: 0,
         dialogVisible: false,//详情对话框是否显示
@@ -181,23 +181,30 @@ export default {
   },
   methods: {
     loadDepartments (){
+      const params = {
+        currentPage: this.currentPage,
+        pageSize: this.pageSize,
+        act: 'byPage'
+      }
       this.$axios
-          .get('/department/list/')
+          .get('/getDepartmentByPage', { params: params })
           .then(successResponse => {
-              this.tableData = successResponse.data.data
-              this.total = successResponse.data.data.length
+              console.log('部门数据:', successResponse.data)
+              this.tableData = successResponse.data.departs || []
+              this.total = successResponse.data.total || 0
           })
           .catch(failResponse => {
-            this.$alert(failResponse.response.status)
+            console.error('请求失败:', failResponse)
+            this.$alert('加载失败: ' + (failResponse.response?.status || failResponse.message))
           })
     },
     //条件查询
     selectDepartmentsByCon(){
         this.$axios
-          .get('/department/list/')
+          .post('/selectDepartmentsByCon', this.selectForm)
           .then(successResponse => {
-             this.tableData = successResponse.data.data
-             this.total = successResponse.data.data.length
+             this.tableData = successResponse.data.departs
+             this.total = successResponse.data.total
           })
           .catch(failResponse => {
             this.$alert(failResponse.response.status, {confirmButtonText: '确定' })
@@ -224,9 +231,9 @@ export default {
       this.detailData = row
       // 获取所有部门作为上级部门选项
       this.$axios
-          .get('/department/list/')
+          .get('/getDepartment')
           .then(successResponse => {
-              this.supdepartments = successResponse.data.data;
+              this.supdepartments = successResponse.data;
           })
           .catch(failResponse => {
             this.$alert(failResponse.response.status)

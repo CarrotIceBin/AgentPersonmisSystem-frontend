@@ -56,13 +56,13 @@
         :cell-style="{ textAlign: 'center' }"
         :default-sort="{prop: 'staff_id', order: 'descending'}"
         class="data-table">
-        <el-table-column prop="staff_id" label="员工编号" sortable width="120"></el-table-column>
-        <el-table-column prop="sname" label="员工名称" width="150"></el-table-column>
-        <el-table-column prop="ttype" label="调动类型" width="120"></el-table-column>
-        <el-table-column prop="beforepost_name" label="调动前岗位" width="180"></el-table-column>
-        <el-table-column prop="afterpost_name" label="调动后岗位" width="180"></el-table-column>
-        <el-table-column prop="tdate1" label="调动时间" sortable width="160"></el-table-column>
-        <el-table-column prop="opdate1" label="操作时间" sortable width="160"></el-table-column>
+        <el-table-column prop="staff_id" label="员工编号" sortable width="100"></el-table-column>
+        <el-table-column prop="sname" label="员工名称" width="200"></el-table-column>
+        <el-table-column prop="ttype" label="调动类型" width="100"></el-table-column>
+        <el-table-column prop="beforepost_name" label="调动前岗位" width="200"></el-table-column>
+        <el-table-column prop="afterpost_name" label="调动后岗位" width="200"></el-table-column>
+        <el-table-column prop="tdate1" label="调动时间" sortable width="200"></el-table-column>
+        <el-table-column prop="opdate1" label="操作时间" sortable width="200"></el-table-column>
       </el-table>
     </div>
     

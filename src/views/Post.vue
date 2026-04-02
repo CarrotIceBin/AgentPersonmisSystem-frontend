@@ -161,7 +161,7 @@ export default {
                 act: ''
             },
             currentPage: 1,
-            tableData: [{}],
+            tableData: [],
             pageSize: 8,
             total: 0,
             updateForm: {},
@@ -175,22 +175,27 @@ export default {
     },
     methods: {
         loadPosts() {
+            const params = {
+                currentPage: this.currentPage,
+                pageSize: this.pageSize,
+                act: 'byPage'
+            }
             this.$axios
-                .get('/post/list/')
+                .get('/getPostByPage', { params: params })
                 .then(successResponse => {
-                    this.tableData = successResponse.data.data
-                    this.total = successResponse.data.data.length
+                    this.tableData = successResponse.data.posts || []
+                    this.total = successResponse.data.total || 0
                 })
                 .catch(failResponse => {
-                    this.$alert(failResponse.response.status)
+                    this.$alert(failResponse.response?.status || '请求失败')
                 })
         },
         selectPostsByCon() {
             this.$axios
-                .get('/post/list/')
+                .post('/selectPostByCon', this.selectForm)
                 .then(successResponse => {
-                    this.tableData = successResponse.data.data
-                    this.total = successResponse.data.data.length
+                    this.tableData = successResponse.data.posts
+                    this.total = successResponse.data.total
                 })
                 .catch(failResponse => {
                     this.$alert(failResponse.response.status, { confirmButtonText: '确定' })

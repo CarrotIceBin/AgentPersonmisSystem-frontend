@@ -56,11 +56,11 @@
         :cell-style="{ textAlign: 'center' }"
         :default-sort="{prop: 'staff_id', order: 'descending'}"
         class="data-table">
-        <el-table-column prop="staff_id" label="员工编号" sortable width="120"></el-table-column>
-        <el-table-column prop="sname" label="员工名称" width="150"></el-table-column>
-        <el-table-column prop="qtype" label="离职类型" width="120"></el-table-column>
-        <el-table-column prop="qdate1" label="离职时间" sortable width="160"></el-table-column>
-        <el-table-column prop="opdate1" label="操作时间" sortable width="160"></el-table-column>
+        <el-table-column prop="staff_id" label="员工编号" sortable width="200"></el-table-column>
+        <el-table-column prop="sname" label="员工名称" width="200"></el-table-column>
+        <el-table-column prop="qtype" label="离职类型" width="200"></el-table-column>
+        <el-table-column prop="qdate1" label="离职时间" sortable width="300"></el-table-column>
+        <el-table-column prop="opdate1" label="操作时间" sortable width="300"></el-table-column>
       </el-table>
     </div>
     

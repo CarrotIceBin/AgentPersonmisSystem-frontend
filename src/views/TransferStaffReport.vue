@@ -39,14 +39,14 @@
         :cell-style="{ textAlign: 'center' }"
         :default-sort="{prop: 'id', order: 'descending'}"
         class="data-table">
-        <el-table-column prop="id" label="ID" sortable width="80"></el-table-column>
-        <el-table-column prop="sname" label="员工名称" width="120"></el-table-column>
-        <el-table-column prop="sex" label="性别" width="80"></el-table-column>
-        <el-table-column prop="dname" label="所在部门" width="150"></el-table-column>
+        <el-table-column prop="id" label="ID" sortable width="100"></el-table-column>
+        <el-table-column prop="sname" label="员工名称" width="100"></el-table-column>
+        <el-table-column prop="sex" label="性别" width="100"></el-table-column>
+        <el-table-column prop="dname" label="所在部门" width="200"></el-table-column>
         <el-table-column prop="pname1" label="原岗位名称" width="150"></el-table-column>
         <el-table-column prop="pname2" label="新岗位名称" width="150"></el-table-column>
-        <el-table-column prop="tdate" label="调动日期" sortable width="160"></el-table-column>
-        <el-table-column prop="ttype" label="调动类型" width="120"></el-table-column>
+        <el-table-column prop="tdate" label="调动日期" sortable width="150"></el-table-column>
+        <el-table-column prop="ttype" label="调动类型" width="200"></el-table-column>
       </el-table>
     </div>
     

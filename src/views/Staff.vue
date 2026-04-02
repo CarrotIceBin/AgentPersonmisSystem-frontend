@@ -45,7 +45,7 @@
         <el-table-column prop="id" label="ID" sortable width="80"></el-table-column>
         <el-table-column prop="sname" label="员工姓名" width="120"></el-table-column>
         <el-table-column prop="dname" label="所在部门" width="150"></el-table-column>
-        <el-table-column prop="pname" label="岗位名称" width="120"></el-table-column>
+        <el-table-column prop="pname" label="岗位名称" width="220"></el-table-column>
         <el-table-column label="操作" width="200">
           <template #default="scope">
             <div class="table-actions">
@@ -468,12 +468,12 @@ export default {
   methods: {
     loadDeparts(){
         this.$axios
-          .get('/department/list/')
+          .get('/getDepartment')
           .then(successResponse => {
-              this.dparts = successResponse.data.data
+              this.dparts = successResponse.data
           })
           .catch(failResponse => {
-            this.$alert(failResponse.response.status)
+            this.$alert(failResponse.response?.status || '请求失败')
           })
     },
     loadPost(){
@@ -487,25 +487,30 @@ export default {
           })
     },
     loadStaffs (){
+      const params = {
+        currentPage: this.currentPage,
+        pageSize: this.pageSize,
+        act: 'byPage'
+      }
       this.$axios
-          .get('/staff/list/')
+          .get('/getStaffByPage', { params: params })
           .then(successResponse => {
-              this.tableData = successResponse.data.data
-              this.total = successResponse.data.data.length
+              this.tableData = successResponse.data.staffs || []
+              this.total = successResponse.data.total || 0
           })
           .catch(failResponse => {
-            this.$alert(failResponse.response.status)
+            this.$alert(failResponse.response?.status || '请求失败')
           })
     },
     selectStaffsByCon(){
         this.$axios
-          .get('/staff/list/')
+          .post('/selectStaffByCon', this.selectForm)
           .then(successResponse => {
-             this.tableData = successResponse.data.data
-             this.total = successResponse.data.data.length
+             this.tableData = successResponse.data.staffs || []
+             this.total = successResponse.data.total || 0
           })
           .catch(failResponse => {
-            this.$alert(failResponse.response.status, {confirmButtonText: '确定' })
+            this.$alert(failResponse.response?.status || '请求失败', {confirmButtonText: '确定' })
           })
     },
      // 表头样式设置

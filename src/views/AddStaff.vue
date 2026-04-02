@@ -219,12 +219,12 @@ export default {
   methods: {
     loadDepartment(){
         this.$axios
-          .get('/department/list/')
+          .get('/getDepartment')
           .then(successResponse => {
-              this.departments = successResponse.data.data
+              this.departments = successResponse.data
           })
           .catch(failResponse => {
-            this.$alert(failResponse.response.status)
+            this.$alert(failResponse.response?.status || '请求失败')
           })
 
     },

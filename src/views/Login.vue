@@ -48,12 +48,12 @@ export default {
           this.loadingbut = true
           this.loadingbuttext = '登录中...'
           this.$axios
-            .post('/auth/login/', {
-              username: loginForm.uname,
-              password: loginForm.upwd
+            .post('/login', {
+              uname: loginForm.uname,
+              upwd: loginForm.upwd
             })
             .then(successResponse => {
-              if (successResponse.data.code === 200) {
+              if (successResponse.data === 'ok') {
                 this.$alert('登录成功', { confirmButtonText: '确定' })
                 this.$store.commit('changeLogin', this.loginForm.uname)
                 let path = this.$route.query.redirect
@@ -65,7 +65,16 @@ export default {
               }
             })
             .catch(failResponse => {
-              this.$alert(failResponse.response.status, { confirmButtonText: '确定' })
+              console.error('登录请求失败:', failResponse)
+              let errorMsg = '登录失败，请检查网络连接'
+              if (failResponse.response) {
+                errorMsg = '服务器错误: ' + failResponse.response.status
+              } else if (failResponse.message) {
+                errorMsg = failResponse.message
+              }
+              this.$alert(errorMsg, { confirmButtonText: '确定' })
+              this.loadingbut = false
+              this.loadingbuttext = '登录'
             })
         } else {
           this.$alert('表单验证失败', { confirmButtonText: '确定' })

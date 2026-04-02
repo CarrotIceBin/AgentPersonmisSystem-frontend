@@ -2,7 +2,7 @@
   <div class="quit-staff-report-container">
     <!-- 页面标题 -->
     <div class="page-header">
-      <h2 class="page-title">离职员工报表</h2>
+      <h2 class="page-title">离职  员工报表</h2>
       <p class="page-subtitle">查看企业员工离职情况</p>
     </div>
     

@@ -182,10 +182,10 @@ export default {
   methods: {
     loadDepartments (){
       this.$axios
-          .get('/getDepartmentByPage?currentPage=' + this.currentPage + '&&pageSize=' + this.pageSize)
+          .get('/department/list/')
           .then(successResponse => {
-              this.tableData = successResponse.data.departs
-              this.total = successResponse.data.total
+              this.tableData = successResponse.data.data
+              this.total = successResponse.data.data.length
           })
           .catch(failResponse => {
             this.$alert(failResponse.response.status)
@@ -193,12 +193,11 @@ export default {
     },
     //条件查询
     selectDepartmentsByCon(){
-        this.selectForm.act = "byCon"
         this.$axios
-          .post('/selectDepartmentsByCon', this.selectForm)//直接提交表单
+          .get('/department/list/')
           .then(successResponse => {
-             this.tableData = successResponse.data.departs
-             this.total = successResponse.data.total
+             this.tableData = successResponse.data.data
+             this.total = successResponse.data.data.length
           })
           .catch(failResponse => {
             this.$alert(failResponse.response.status, {confirmButtonText: '确定' })
@@ -222,11 +221,12 @@ export default {
     //编辑与详情
     handleEdit(index, row, act) {
       console.log(index, row);
+      this.detailData = row
+      // 获取所有部门作为上级部门选项
       this.$axios
-          .get('/getDepartmentDetail?id=' + row.id )
+          .get('/department/list/')
           .then(successResponse => {
-              this.detailData = successResponse.data.aDepart
-              this.supdepartments = successResponse.data.departs;
+              this.supdepartments = successResponse.data.data;
           })
           .catch(failResponse => {
             this.$alert(failResponse.response.status)
@@ -244,9 +244,9 @@ export default {
           type: 'warning'
         }).then(() => {
           this.$axios
-          .post('/deleteDepartment?id=' + row.id)
+          .delete('/department/delete/' + row.id + '/')
           .then(successResponse => {
-            if (successResponse.data === "ok") {
+            if (successResponse.data.code === 200) {
               this.$message({
                 type: 'success',
                 message: '删除成功!'
@@ -272,9 +272,9 @@ export default {
     },
     update(){
         this.$axios
-          .post('/updateDepartment', this.detailData)//直接提交表单
+          .put('/department/update/' + this.detailData.id + '/', this.detailData)
           .then(successResponse => {
-            if (successResponse.data === "ok") {
+            if (successResponse.data.code === 200) {
               this.$alert('修改成功', {confirmButtonText: '确定' })
               this.dialogVisibleDetail = false
               //修改成功后重新加载

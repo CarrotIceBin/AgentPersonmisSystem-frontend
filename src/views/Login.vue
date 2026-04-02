@@ -48,12 +48,12 @@ export default {
           this.loadingbut = true
           this.loadingbuttext = '登录中...'
           this.$axios
-            .post('/login', {
-              uname: loginForm.uname,
-              upwd: loginForm.upwd
+            .post('/auth/login/', {
+              username: loginForm.uname,
+              password: loginForm.upwd
             })
             .then(successResponse => {
-              if (successResponse.data === "ok") {
+              if (successResponse.data.code === 200) {
                 this.$alert('登录成功', { confirmButtonText: '确定' })
                 this.$store.commit('changeLogin', this.loginForm.uname)
                 let path = this.$route.query.redirect

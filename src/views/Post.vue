@@ -176,22 +176,21 @@ export default {
     methods: {
         loadPosts() {
             this.$axios
-                .get('/getPostByPage?currentPage=' + this.currentPage + '&&pageSize=' + this.pageSize)
+                .get('/post/list/')
                 .then(successResponse => {
-                    this.tableData = successResponse.data.posts
-                    this.total = successResponse.data.total
+                    this.tableData = successResponse.data.data
+                    this.total = successResponse.data.data.length
                 })
                 .catch(failResponse => {
                     this.$alert(failResponse.response.status)
                 })
         },
         selectPostsByCon() {
-            this.selectForm.act = "byCon"
             this.$axios
-                .post('/selectPostByCon', this.selectForm)
+                .get('/post/list/')
                 .then(successResponse => {
-                    this.tableData = successResponse.data.posts
-                    this.total = successResponse.data.total
+                    this.tableData = successResponse.data.data
+                    this.total = successResponse.data.data.length
                 })
                 .catch(failResponse => {
                     this.$alert(failResponse.response.status, { confirmButtonText: '确定' })
@@ -212,14 +211,7 @@ export default {
         },
         handleEdit(index, row, act) {
             console.log(index, row);
-            this.$axios
-                .get('/getPostDetail?id=' + row.id)
-                .then(successResponse => {
-                    this.updateForm = successResponse.data
-                })
-                .catch(failResponse => {
-                    this.$alert(failResponse.response.status)
-                })
+            this.updateForm = row
             if (act === 'update')
                 this.postDialogVisible = true
             else
@@ -233,9 +225,9 @@ export default {
                 type: 'warning'
             }).then(() => {
                 this.$axios
-                    .post('/deletePost?id=' + row.id)
+                    .delete('/post/delete/' + row.id + '/')
                     .then(successResponse => {
-                        if (successResponse.data === "ok") {
+                        if (successResponse.data.code === 200) {
                             this.$message({
                                 type: 'success',
                                 message: '删除成功!'
@@ -259,9 +251,9 @@ export default {
             this.loadingbut = true;
             this.loadingbuttext = '修改中...';
             this.$axios
-                .post('/updatePost', this.updateForm)
+                .put('/post/update/' + this.updateForm.id + '/', this.updateForm)
                 .then(successResponse => {
-                    if (successResponse.data === "ok") {
+                    if (successResponse.data.code === 200) {
                         this.$alert('修改成功', { confirmButtonText: '确定' })
                         this.postDialogVisible = false
                         this.loadPosts()

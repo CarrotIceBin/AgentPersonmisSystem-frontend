@@ -219,9 +219,9 @@ export default {
   methods: {
     loadDepartment(){
         this.$axios
-          .get('/getDepartment')
+          .get('/department/list/')
           .then(successResponse => {
-              this.departments = successResponse.data
+              this.departments = successResponse.data.data
           })
           .catch(failResponse => {
             this.$alert(failResponse.response.status)
@@ -230,9 +230,9 @@ export default {
     },
     loadPost(){
         this.$axios
-          .get('/getPost')
+          .get('/post/list/')
           .then(successResponse => {
-              this.posts = successResponse.data
+              this.posts = successResponse.data.data
           })
           .catch(failResponse => {
             this.$alert(failResponse.response.status)
@@ -244,9 +244,9 @@ export default {
                 this.loadingbut = true;
                 this.loadingbuttext = '添加中...';
                 this.$axios
-                .post('/addStaff', this.addForm)//直接提交表单
+                .post('/staff/add/', this.addForm)
                 .then(successResponse => {
-                    if (successResponse.data === "ok") {
+                    if (successResponse.data.code === 200) {
                     this.$alert('添加成功', {confirmButtonText: '确定' })
                     this.$router.replace({path: '/staff'})
                     }else {

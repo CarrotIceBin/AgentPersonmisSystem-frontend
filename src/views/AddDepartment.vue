@@ -58,9 +58,9 @@ export default {
             this.loadingbut = true;
             this.loadingbuttext = '添加中...';
             this.$axios
-              .post('/addDepartment', this.addForm)//直接提交表单
+              .post('/department/add/', this.addForm)
               .then(successResponse => {
-                if (successResponse.data === "ok") {
+                if (successResponse.data.code === 200) {
                   this.$alert('添加成功', {confirmButtonText: '确定' })
                   this.$router.replace({path: '/department'})
                 }else {
@@ -81,9 +81,9 @@ export default {
     },
     loadSupdepartment(){
         this.$axios
-          .get('/getDepartment')
+          .get('/department/list/')
           .then(successResponse => {
-              this.supdepartments = successResponse.data
+              this.supdepartments = successResponse.data.data
           })
           .catch(failResponse => {
             this.$alert(failResponse.response.status)

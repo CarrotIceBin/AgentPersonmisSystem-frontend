@@ -468,9 +468,9 @@ export default {
   methods: {
     loadDeparts(){
         this.$axios
-          .get('/getDepartment')
+          .get('/department/list/')
           .then(successResponse => {
-              this.dparts = successResponse.data
+              this.dparts = successResponse.data.data
           })
           .catch(failResponse => {
             this.$alert(failResponse.response.status)
@@ -478,9 +478,9 @@ export default {
     },
     loadPost(){
         this.$axios
-          .get('/getPost')
+          .get('/post/list/')
           .then(successResponse => {
-              this.posts = successResponse.data
+              this.posts = successResponse.data.data
           })
           .catch(failResponse => {
             this.$alert(failResponse.response.status)
@@ -488,22 +488,21 @@ export default {
     },
     loadStaffs (){
       this.$axios
-          .get('/getStaffByPage?currentPage=' + this.currentPage + '&&pageSize=' + this.pageSize)
+          .get('/staff/list/')
           .then(successResponse => {
-              this.tableData = successResponse.data.staffs
-              this.total = successResponse.data.total
+              this.tableData = successResponse.data.data
+              this.total = successResponse.data.data.length
           })
           .catch(failResponse => {
             this.$alert(failResponse.response.status)
           })
     },
     selectStaffsByCon(){
-        this.selectForm.act = "byCon"
         this.$axios
-          .post('/selectStaffByCon', this.selectForm)//直接提交表单
+          .get('/staff/list/')
           .then(successResponse => {
-             this.tableData = successResponse.data.staffs
-             this.total = successResponse.data.total
+             this.tableData = successResponse.data.data
+             this.total = successResponse.data.data.length
           })
           .catch(failResponse => {
             this.$alert(failResponse.response.status, {confirmButtonText: '确定' })
@@ -527,14 +526,7 @@ export default {
     handleEdit(index, row, act) {
       this.loadPost()
       console.log(index, row);
-      this.$axios
-          .get('/getStaffDetail?id=' + row.id )
-          .then(successResponse => {
-              this.addForm = successResponse.data
-          })
-          .catch(failResponse => {
-            this.$alert(failResponse.response.status)
-          })
+      this.addForm = row
       if(act === 'update')
         this.staffDialogVisible = true
       else
@@ -548,15 +540,15 @@ export default {
           type: 'warning'
         }).then(() => {
           this.$axios
-          .post('/deleteStaff?id=' + row.id)
+          .delete('/staff/delete/' + row.id + '/')
           .then(successResponse => {
-            if (successResponse.data === "ok") {
+            if (successResponse.data.code === 200) {
               this.$message({
                 type: 'success',
                 message: '删除成功!'
               });
               //删除成功后重新加载
-              this.loadPosts()
+              this.loadStaffs()
             }else {
               this.$alert('不能删除有关联数据！', {confirmButtonText: '确定' })
             }
@@ -575,9 +567,9 @@ export default {
         this.loadingbut = true;
         this.loadingbuttext = '修改中...';
         this.$axios
-          .post('/updateStaff', this.addForm)//直接提交表单
+          .put('/staff/update/' + this.addForm.id + '/', this.addForm)
           .then(successResponse => {
-            if (successResponse.data === "ok") {
+            if (successResponse.data.code === 200) {
               this.$alert('修改成功', {confirmButtonText: '确定' })
               this.staffDialogVisible = false
               this.loadStaffs()

@@ -214,7 +214,6 @@ export default {
   },
   created: function () {
       this.loadDepartment()
-      this.loadPost()
   },
   methods: {
     loadDepartment(){

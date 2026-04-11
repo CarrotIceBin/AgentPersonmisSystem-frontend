@@ -8,7 +8,7 @@
     
     <!-- 查询表单 -->
     <div class="search-form">
-      <el-form ref="selectForm" :model="selectForm" class="form-content">
+      <el-form ref="selectForm" :model="selectForm" class="form-content" label-width="200px">
         <el-row :gutter="20">
           <el-col :span="8">
             <el-form-item label="员工名称" prop="sname">
@@ -25,7 +25,7 @@
           <el-col :span="8" class="form-button-col">
             <el-form-item>
               <el-button type="primary" class="search-button" @click="selectStaffsByCon">
-                <el-icon><Search /></el-icon>
+                <el-icon name="search"></el-icon>
                 查询
               </el-button>
             </el-form-item>
@@ -42,11 +42,11 @@
         :cell-style="{ textAlign: 'center' }"
         :default-sort="{prop: 'id', order: 'descending'}"
         class="data-table">
-        <el-table-column prop="id" label="ID" sortable width="80"></el-table-column>
-        <el-table-column prop="sname" label="员工姓名" width="120"></el-table-column>
-        <el-table-column prop="dname" label="所在部门" width="150"></el-table-column>
-        <el-table-column prop="pname" label="岗位名称" width="220"></el-table-column>
-        <el-table-column label="操作" width="200">
+        <el-table-column prop="id" label="ID" sortable width="100"></el-table-column>
+        <el-table-column prop="sname" label="员工姓名" width="220"></el-table-column>
+        <el-table-column prop="dname" label="所在部门" width="250"></el-table-column>
+        <el-table-column prop="pname" label="岗位名称" width="320"></el-table-column>
+        <el-table-column label="操作" width="300">
           <template #default="scope">
             <div class="table-actions">
               <el-button
@@ -54,7 +54,7 @@
                 type="success"
                 class="action-button edit-button"
                 @click="handleEdit(scope.$index, scope.row, 'update')">
-                <el-icon><Edit /></el-icon>
+                <el-icon name="edit"></el-icon>
                 编辑
               </el-button>
               <el-button
@@ -62,7 +62,7 @@
                 type="primary"
                 class="action-button detail-button"
                 @click="handleEdit(scope.$index, scope.row, 'detail')">
-                <el-icon><View /></el-icon>
+                <el-icon name="view"></el-icon>
                 详情
               </el-button>
               <el-button
@@ -70,7 +70,7 @@
                 type="danger"
                 class="action-button delete-button"
                 @click="handleDelete(scope.$index, scope.row)">
-                <el-icon><Delete /></el-icon>
+                <el-icon name="delete"></el-icon>
                 删除
               </el-button>
             </div>
@@ -409,15 +409,7 @@
 </el-dialog>
 </template>
 <script>
-import { Search, Edit, View, Delete } from '@element-plus/icons-vue'
-
 export default {
-  components: {
-    Search,
-    Edit,
-    View,
-    Delete
-  },
   created: function () {
     this.loadStaffs(),
     this.loadDeparts()

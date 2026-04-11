@@ -25,7 +25,7 @@
           <el-col :span="8" class="form-button-col">
             <el-form-item>
               <el-button type="primary" class="search-button" @click="selectDepartmentsByCon">
-                <el-icon><Search /></el-icon>
+                <el-icon name="search"></el-icon>
                 查询
               </el-button>
             </el-form-item>
@@ -54,7 +54,7 @@
                 type="success"
                 class="action-button edit-button"
                 @click="handleEdit(scope.$index, scope.row, 'update')">
-                <el-icon><Edit /></el-icon>
+                <el-icon name="edit"></el-icon>
                 编辑
               </el-button>
               <el-button
@@ -62,7 +62,7 @@
                 type="primary"
                 class="action-button detail-button"
                 @click="handleEdit(scope.$index, scope.row, 'detail')">
-                <el-icon><View /></el-icon>
+                <el-icon name="view"></el-icon>
                 详情
               </el-button>
               <el-button
@@ -70,7 +70,7 @@
                 type="danger"
                 class="action-button delete-button"
                 @click="handleDelete(scope.$index, scope.row)">
-                <el-icon><Delete /></el-icon>
+                <el-icon name="delete"></el-icon>
                 删除
               </el-button>
             </div>
@@ -149,15 +149,7 @@
   </div>
 </template>
 <script>
-import { Search, Edit, View, Delete } from '@element-plus/icons-vue'
-
 export default {
-  components: {
-    Search,
-    Edit,
-    View,
-    Delete
-  },
   created: function () {
     this.loadDepartments()
   },

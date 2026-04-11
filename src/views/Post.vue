@@ -8,7 +8,7 @@
     
     <!-- 查询表单 -->
     <div class="search-form">
-      <el-form ref="selectForm" :model="selectForm" class="form-content">
+      <el-form ref="selectForm" :model="selectForm" class="form-content" label-width="200px">
         <el-row :gutter="20">
           <el-col :span="8">
             <el-form-item label="岗位名称" prop="pname">
@@ -50,11 +50,11 @@
         :cell-style="{ textAlign: 'center' }"
         :default-sort="{prop: 'id', order: 'descending'}"
         class="data-table">
-        <el-table-column prop="id" label="ID" sortable width="80"></el-table-column>
-        <el-table-column prop="pname" label="名称" width="180"></el-table-column>
-        <el-table-column prop="ptype" label="类型" width="120"></el-table-column>
-        <el-table-column prop="organization" label="编制人数" sortable width="120"></el-table-column>
-        <el-table-column label="操作" width="200">
+        <el-table-column prop="id" label="ID" sortable width="100"></el-table-column>
+        <el-table-column prop="pname" label="名称" width="280"></el-table-column>
+        <el-table-column prop="ptype" label="类型" width="320"></el-table-column>
+        <el-table-column prop="organization" label="编制人数" sortable width="220"></el-table-column>
+        <el-table-column label="操作" width="300">
           <template #default="scope">
             <div class="table-actions">
               <el-button

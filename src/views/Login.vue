@@ -2,7 +2,7 @@
   <div class="login-container">
     <div class="login-form-wrapper">
       <div class="login-header">
-        <h2 class="login-title">某某有限公司人事管理系统</h2>
+        <h2 class="login-title">湖北科技有限公司人事管理系统</h2>
         <p class="login-subtitle">管理员登录</p>
       </div>
       <el-form ref="loginForm" :model="loginForm" :rules="rules" class="login-form">

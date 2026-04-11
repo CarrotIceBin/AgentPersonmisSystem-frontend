@@ -8,7 +8,7 @@ const vapp = createApp(App)
 //设置反向代理，前端请求默认发送到 http://localhost:8000
 const axios = require('axios')//使用 axios 来完成 ajax 请求。
 //全局注册，之后可在其他组件中通过 this.$axios 发送数据
-axios.defaults.baseURL = '/'
+axios.defaults.baseURL = 'http://localhost:8443/personmis'
 //设置axios携带cookie
 axios.defaults.withCredentials = true
 //axios挂载到vue实例

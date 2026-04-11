@@ -230,9 +230,9 @@ export default {
     },
     loadPost(){
         this.$axios
-          .get('/post/list/')
+          .get('/selectStaffByPage')
           .then(successResponse => {
-              this.posts = successResponse.data.data
+              this.posts = successResponse.data
           })
           .catch(failResponse => {
             this.$alert(failResponse.response.status)
@@ -244,9 +244,9 @@ export default {
                 this.loadingbut = true;
                 this.loadingbuttext = '添加中...';
                 this.$axios
-                .post('/staff/add/', this.addForm)
+                .post('/addStaff', this.addForm)
                 .then(successResponse => {
-                    if (successResponse.data.code === 200) {
+                    if (successResponse.data === 'ok') {
                     this.$alert('添加成功', {confirmButtonText: '确定' })
                     this.$router.replace({path: '/staff'})
                     }else {

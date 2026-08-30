@@ -1,4 +1,4 @@
-# personmis-vuee'e'e
+# personmis-vue
 
 ## Project setup
 ```
